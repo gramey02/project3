@@ -35,13 +35,14 @@ class Graph:
         We highly encourage the use of priority queues in your implementation. See the heapq
         module, particularly the `heapify`, `heappop`, and `heappush` functions.
         """
-        vertices = list(range(0,len(self.adj_mat))) #vertex labels
+        vertices = list(range(0,len(self.adj_mat))) #vertex labels. Length of this is the number of vertices
         visited_vertices = [vertices[0]] #set the first node in the list as the start node
         
         edges = {} #format will be {weight: [start_node, destination_node]}
         
         #get outgoing edges from all visited nodes and add them to the ditionary
         #make sure to store both the edge weight and the destination node
+        #maybe change range here to len(self.adj_mat)
         for i in range(0,len(visited_vertices)):
             if(self.adj_mat[visited_vertices[0]][i] != 0):
                 edges[self.adj_mat[visited_vertices[0]][i]] = [vertices[0], i]
@@ -51,34 +52,22 @@ class Graph:
         #heapify the dictionary (really a list now) based on edge weights
         heapq.heapify(edges)
         
-        
+        mst_edges = [] #for storing final mst edges and start/destination nodes
         #while not all vertices have been visited...
         while len(visited_vertices)<len(vertices):
             low_wt = heapq.heappop(edges) #pop the lowest weight edge from the queue along with its start and destination nodes
             #if the destination node of the current lowest weight edge has not been visited...
             if low_wt[1][1] not in visited_vertices:
-                
-        
-        
-        
-        
-        #workshop this later
-        #create a min heap using the heapify function
-        heap=[]
-        heapq.heapify(heap)
-        for i in range(0,len(visited_vertices)):
-            if(self.adj_mat[visited_vertices[0]][i] != 0):
-                heapq.push((heap,self.adj_mat[visited_vertices[0]][i], i))
-        
-        while len(visited_vertices)<len(vertices):
+                mst_edges.append(low_wt) #append the lowest weight edge and corresponding nodes to mst_edges
+                visited_vertices.append(low_wt[1][1]) #append the destination node to the visited_vertices list
+                for i in range(0,length(self.adj_mat)):
+                    if(self.adj_mat[low_wt[]]) #this is the line you were on-------------------------------------------------------
+                    edges.append(())#add all outgoing edges from the destination node to the priority queue
             
         
+
         
-        #edge_weights = {} #initialize a dictionary for the edge weights
-        #start = 
-        
-        
+        #self.mst should be another adjacency matrix
+        #duplicate the original adjacency matrix and fill in the cells with new values
+        final_mst = self.adj_mat
         self.mst = 'TODO'
-        
-        
-        #start off by storing the weight of the minimum edge of each node in a dictionary ()
