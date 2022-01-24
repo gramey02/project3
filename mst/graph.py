@@ -38,6 +38,18 @@ class Graph:
         vertices = list(range(0,len(self.adj_mat))) #vertex labels
         visited_vertices = [vertices[0]] #set the first node in the list as the start node
         
+        #create a min heap using the heapify function
+        heap = []
+        heapq.heapify(heap)
+        
+        #get outgoing edges from all visited nodes and push them onto heap
+        #make sure to store both the edge weight and the destination node
+        for i in range(0,len(visited_vertices)):
+            if(self.adj_mat[visited_vertices[0]][i] != 0):
+                heapq.push((heap,self.adj_mat[visited_vertices[0]][i], i))
+        
+        while len(visited_vertices)<len(vertices):
+            
         
         
         #edge_weights = {} #initialize a dictionary for the edge weights
