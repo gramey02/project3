@@ -38,24 +38,26 @@ class Graph:
         vertices = list(range(0,len(self.adj_mat))) #vertex labels
         visited_vertices = [vertices[0]] #set the first node in the list as the start node
         
-        edges = []
-        edges = [(weight, start_node, end_node)]
+        edges = {} #format will be {weight: [start_node, destination_node]}
         
-        #get outgoing edges from all visited nodes and push them onto heap
+        #get outgoing edges from all visited nodes and add them to the ditionary
         #make sure to store both the edge weight and the destination node
         for i in range(0,len(visited_vertices)):
             if(self.adj_mat[visited_vertices[0]][i] != 0):
-                d[self.adj_mat[visited_vertices[0]][i]] = i #edge weight is the key, destination node is the value
+                edges[self.adj_mat[visited_vertices[0]][i]] = [vertices[0], i]
+                
+        #convert dictionary into a list
+        edges = list(edges.items())
+        #heapify the dictionary (really a list now) based on edge weights
+        heapq.heapify(edges)
         
-        #now convert dictionary to a list of tuples and heapify it, then convert it back into a dictionary
-        d_list = list(d.items())
-        edges = heapq.heapify(d_list)
-        heapified_edges = dict(edges)
         
         #while not all vertices have been visited...
         while len(visited_vertices)<len(vertices):
-            heapq.heappop(heapified_edges) #pop the lowest weight edge from the queue along with its destination node
-        
+            low_wt = heapq.heappop(edges) #pop the lowest weight edge from the queue along with its start and destination nodes
+            #if the destination node of the current lowest weight edge has not been visited...
+            if low_wt[1][1] not in visited_vertices:
+                
         
         
         
