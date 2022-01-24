@@ -35,4 +35,16 @@ class Graph:
         We highly encourage the use of priority queues in your implementation. See the heapq
         module, particularly the `heapify`, `heappop`, and `heappush` functions.
         """
+        vertices = list(range(0,len(self.adj_mat))) #vertex labels
+        visited_vertices = [vertices[0]] #set the first node in the list as the start node
+        
+        
+        
+        #edge_weights = {} #initialize a dictionary for the edge weights
+        #start = 
+        
+        
         self.mst = 'TODO'
+        
+        
+        #start off by storing the weight of the minimum edge of each node in a dictionary ()
