@@ -43,16 +43,51 @@ def check_mst(adj_mat: np.ndarray,
     assert mst_edges==len(adj_mat) - 1 #length of adj_mat should be # vertices, so subtract 1 from this to get # of edges
     
     #check to make sure the adjacency and mst matrices are symmetric, since both are undirected
+    #at the same time, check to make sure that the mst weights are a subset of the weights in the original adj_mat
+    mst_set = {} #empty set
+    adj_mat_set = {} #empty set
     for i in range(adj_mat.shape[0]):
         for j in range(i+1):
             assert adj_mat[i,j] == adj_mat[j,i]
+            if adj_mat[i,j] != 0:
+                adj_mat_set.add(adj_mat[i,j]) #add any non-zero values in adj_mat to the set adj_mat_set
     for i in range(mst.shape[0]):
         for j in range(i+1):
             assert mst[i,j] == mst[i,j]
+            if mst[i,j] != 0:
+                mst_set.add(mst[i,j]) #add any non-zero values in mst to the set mst_set
+    
+    assert mst_set.issubset(adj_mat_set) #check that mst_set is a subset of adj_mat_set
+
     
     #minimum spanning trees are always connected--use a version of the breadth-first search algorithm from last week to check this
-    
-    #other checks on the properties of msts?
+    def bfs_project3():
+        visited = [] #queue to store visited nodes
+            queue = [] #general queue
+            shortest_path = []
+            path = {} #dictionary for storing parent nodes
+            
+            queue.append(start) #add start node to the queue
+            visited.append(start) #mark the start node as visited
+            
+            while queue:
+                cur_node = queue.pop(0) #dequeue the current node
+                
+                if cur_node == end:
+                    #the first entry of the shortest path queue will be the end node, the last entry will be start node
+                    shortest_path.append(cur_node) #append the end node to the shortest_path queue
+                    while (path.get(cur_node) is not None):
+                        shortest_path.append(path[cur_node]) #traceback the shortest path by appending the parent nodes in order
+                        cur_node = path[cur_node] #update cur_node variable to be the parent node
+                    return shortest_path
+
+                #for each unvisited neighbor of the current node...
+                for nghbr in set(nx.neighbors(self.graph, cur_node)):
+                    if nghbr not in visited:
+                        queue.append(nghbr) #add current neighbor to the queue
+                        visited.append(nghbr) #mark current neighbor as visited
+                        path[nghbr] = cur_node #store the parent node of the neighbor in the dictionary
+
 
 def test_mst_small():
     """ Unit test for the construction of a minimum spanning tree on a small graph """
