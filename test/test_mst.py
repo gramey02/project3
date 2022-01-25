@@ -61,9 +61,10 @@ def check_mst(adj_mat: np.ndarray,
     assert set(mst_set).issubset(set(adj_mat_set)) #check that mst_set is a subset of adj_mat_set
 
     
+    
     #minimum spanning trees are always connected--use a version of the breadth-first search algorithm from last week to check this
-    """
-    def bfs_from_project3(start):
+    vertices = list(range(0,len(mst))) #vertex labels. Length of this is the number of vertices in mst
+    def bfs(start, adj_mat):
         visited = [] #queue to store visited nodes
         queue = [] #general queue
         path = {} #dictionary for storing parent nodes
@@ -76,15 +77,18 @@ def check_mst(adj_mat: np.ndarray,
             cur_node = queue.pop(0) #dequeue the current node
 
             #for each unvisited neighbor of the current node...
-            for nghbr in set(nx.neighbors(self.graph, cur_node)):
-                if nghbr not in visited:
-                    queue.append(nghbr) #add current neighbor to the queue
-                    visited.append(nghbr) #mark current neighbor as visited
-                    path[nghbr] = cur_node #store the parent node of the neighbor in the dictionary
-        return visited #visited gives the order of traversal
-    """
+            for i in range(0,len(adj_mat)):
+            if ((self.adj_mat[cur_node][i] != 0) and (i not in visited)): #search the row of the current node to find neighbors
+                queue.append(i) #add neighbor node to the queue
+                visited.append(i) #mark current neighbor as visited
+                path[i] = cur_node #store the parent node of the neighbor in the dictionary path
+            return visited #visited returns the order of traversal (and traversal cannot occur if the graph isn't connnected)
+            
     
-    #get create a sequence of node names
+    assert len(bfs(vertices[0], adj_mat))==len(vertices) #length of traversed path should equal the total number of vertices
+
+    
+
 
 
 def test_mst_small():
