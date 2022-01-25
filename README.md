@@ -1,4 +1,4 @@
-! [BuildStatus] (https://github.com/gramey02/project3/workflows/project3/badge.svg?event=push)
+![BuildStatus](https://github.com/gramey02/project3/workflows/project3/badge.svg?event=push)
 
 # Project 3
 Minimum Spanning Trees
