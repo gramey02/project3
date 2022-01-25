@@ -52,6 +52,7 @@ def check_mst(adj_mat: np.ndarray,
     
     #minimum spanning trees are always connected--use a version of the breadth-first search algorithm from last week to check this
     
+    #other checks on the properties of msts?
 
 def test_mst_small():
     """ Unit test for the construction of a minimum spanning tree on a small graph """
@@ -78,7 +79,7 @@ def test_mst_single_cell_data():
 
 def test_mst_student():
     """ TODO: Write at least one unit test for MST construction """
-    #create a dummy networks to test on
+    #create a dummy network and corresponding mst to test on
     adj_mat = np.array([[0, 20, 8, 0, 0, 0, 1],
                    [20, 0, 0, 4, 0, 0, 10],
                    [8, 0, 0, 6, 2, 5, 0],
@@ -87,8 +88,28 @@ def test_mst_student():
                    [0, 0, 5, 0, 0, 0, 0],
                    [1, 10, 0, 0, 0, 0, 0]
                    ])
-    check
+    mst = np.array([[0., 0., 8., 0., 0., 0., 1.],
+       [0., 0., 0., 4., 0., 0., 0.],
+       [8., 0., 0., 6., 2., 5., 0.],
+       [0., 4., 6., 0., 0., 0., 0.],
+       [0., 0., 2., 0., 0., 0., 0.],
+       [0., 0., 5., 0., 0., 0., 0.],
+       [1., 0., 0., 0., 0., 0., 0.]])
     
-    #create another dummy network that is an edge case, i.e. that has a cycle in it
+    check_mst(adj_mat = adj_mat, mst = mst, expected_weight = 26)
     
-    pass
+    #the mst for the adj_mat above should be unique, so make sure that construct_mst() returns the same mst as shown above
+    dummyG = Graph(adj_mat)
+    assert dummyG.construct_mst() == mst
+    
+    #for a graph whose mst is NOT unique (like small.csv), check that the mst equals one of two non-unique mst options
+    file_path = './data/small.csv'
+    small = Graph(file_path)
+    assert small.construct_mst() == np.array([[0., 0., 0., 5.],
+                                              [0., 0., 1., 2.],
+                                              [0., 1., 0., 0.],
+                                              [5., 2., 0., 0.]]) or np.array([[0., 0., 0., 5.],
+                                                                              [0., 0., 1., 2.],
+                                                                              [0., 1., 0., 0.],
+                                                                              [5., 2., 0., 0.]])
+    
