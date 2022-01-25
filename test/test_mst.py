@@ -47,12 +47,14 @@ def check_mst(adj_mat: np.ndarray,
     adj_mat_set = [] #empty list
     for i in range(adj_mat.shape[0]):
         for j in range(i+1):
-            assert adj_mat[i,j] == adj_mat[j,i]
+            #check the symmetry of the rounded values (since some decimals are like 0.00000001 off)
+            assert round(adj_mat[i,j],6) == round(adj_mat[j,i],6)
             if adj_mat[i,j] != 0:
                 adj_mat_set.append(adj_mat[i,j]) #add any non-zero values in adj_mat to the set adj_mat_set
     for i in range(mst.shape[0]):
         for j in range(i+1):
-            assert mst[i,j] == mst[i,j]
+            #check the symmetry of the rounded values (since some decimals are like 0.00000001 off)
+            assert round(mst[i,j],6) == round(mst[i,j],6)
             if mst[i,j] != 0:
                 mst_set.append(mst[i,j]) #add any non-zero values in mst to the set mst_set
     
@@ -131,7 +133,24 @@ def test_mst_student():
     
     #the mst for the adj_mat above should be unique, so make sure that construct_mst() returns the same mst as shown above
     dummyG = Graph(adj_mat)
-    assert dummyG.construct_mst() == mst
+    dummyG.construct_mst() #construct mst for dummy network above
+    #check that the right edge weights are in each position of the mst
+    for i in range(mst.shape[0]):
+        for j in range(i+1):
+            if (i==0 and j==2) or (i==2 and j==0):
+                assert dummyG.mst[i,j]==8
+            if (i==0 and j==6) or (i==6 and j==0):
+                assert dummyG.mst[i,j]==1
+            if (i==1 and j==3) or (i==3 and j==1):
+                assert dummyG.mst[i,j]==4
+            if (i==2 and j==3) or (i==3 and j==2):
+                assert dummyG.mst[i,j]==6
+            if (i==2 and j==4) or (i==4 and j==2):
+                assert dummyG.mst[i,j]==2
+            if (i==2 and j==5) or (i==5 and j==2):
+                assert dummyG.mst[i,j]==5
+            else:
+                assert dummyG.mst[i,j]==0
     
     #for a graph whose mst is NOT unique (like small.csv), check that the mst equals one of two non-unique mst options
     file_path = './data/small.csv'
