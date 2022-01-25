@@ -61,8 +61,8 @@ class Graph:
                 mst_edges.append(low_wt) #append the lowest weight edge and corresponding nodes to mst_edges
                 visited_vertices.append(low_wt[1][1]) #append the destination node to the visited_vertices list
                 for i in range(0,length(self.adj_mat)):
-                    if(self.adj_mat[low_wt[]]) #this is the line you were on-------------------------------------------------------
-                    edges.append(())#add all outgoing edges from the destination node to the priority queue
+                    if(self.adj_mat[low_wt[1][1]][i] != 0): #this is the line you were on-------------------------------------------------------
+                        edges.append((self.adj_mat[low_wt[1][1]][i] , ))#add all outgoing edges from the destination node to the priority queue
             
         
 
