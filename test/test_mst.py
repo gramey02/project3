@@ -153,7 +153,7 @@ def test_mst_student():
                      [5, 2, 0, 0]])
     
     small = Graph(file_path)
-    small.construt_mst() #construct mst for small network
+    small.construct_mst() #construct mst for small network
     #check that one of the expected msts is equal to the constructed one
     comparison = (small.mst==mst1) or (small.mst==mst2)
     arrays_are_equal = comparison.all()
