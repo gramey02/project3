@@ -42,17 +42,17 @@ class Graph:
         
         #get outgoing edges from all visited nodes and add them to the ditionary
         #make sure to store both the edge weight and the destination node
-        #maybe change range here to len(self.adj_mat)
-        for i in range(0,len(visited_vertices)):
+        for i in range(0,len(self.adj_mat)):
             if(self.adj_mat[visited_vertices[0]][i] != 0):
                 edges[self.adj_mat[visited_vertices[0]][i]] = [vertices[0], i]
                 
-        #convert dictionary into a list
+        #convert dictionary into a list so it can be heapified
         edges = list(edges.items())
         #heapify the dictionary (really a list now) based on edge weights
         heapq.heapify(edges)
         
         mst_edges = [] #for storing final mst edges and start/destination nodes
+        
         #while not all vertices have been visited...
         while len(visited_vertices)<len(vertices):
             low_wt = heapq.heappop(edges) #pop the lowest weight edge from the queue along with its start and destination nodes
@@ -61,13 +61,16 @@ class Graph:
                 mst_edges.append(low_wt) #append the lowest weight edge and corresponding nodes to mst_edges
                 visited_vertices.append(low_wt[1][1]) #append the destination node to the visited_vertices list
                 for i in range(0,length(self.adj_mat)):
-                    if(self.adj_mat[low_wt[1][1]][i] != 0): #this is the line you were on-------------------------------------------------------
-                        edges.append((self.adj_mat[low_wt[1][1]][i] , ))#add all outgoing edges from the destination node to the priority queue
-            
+                    if(self.adj_mat[low_wt[1][1]][i] != 0):
+                        heapq.heappush(edges, (self.adj_mat[low_wt[1][1]][i], [low_wt[1][1], i])) #add all outgoing edges from the destination node to the priority queue
         
+        
+        #reconstruct an adjacency matrix with only the mst information contained in mst_edges
+        final_mst = np.zeros((len(self.adj_mat), len(self.adj_mat))) #start by creating an adjancency matrix with same dimensions as self.adj_mat
+        #fill the adj mat in for each weighted edge in mst_edges
+        for edge in range(0,len(mst_edges)):
+            cur_edge = mst_edges[i] #get the current edge
+            #find the start and destination vertices from the current edge and assign the corresponding weight to them in the adjacency matrix
+            final_mst[cur_edge[1][0], cur_edge[1][1]] = cur_edge[0]
 
-        
-        #self.mst should be another adjacency matrix
-        #duplicate the original adjacency matrix and fill in the cells with new values
-        final_mst = self.adj_mat
-        self.mst = 'TODO'
+        self.mst = final_mst
