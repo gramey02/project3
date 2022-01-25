@@ -78,11 +78,11 @@ def check_mst(adj_mat: np.ndarray,
 
             #for each unvisited neighbor of the current node...
             for i in range(0,len(adj_mat)):
-            if (adj_mat[cur_node][i] != 0) and (i not in visited): #search the row of the current node to find neighbors
-                queue.append(i) #add neighbor node to the queue
-                visited.append(i) #mark current neighbor as visited
-                path[i] = cur_node #store the parent node of the neighbor in the dictionary path
-            return visited #visited returns the order of traversal (and traversal cannot occur if the graph isn't connnected)
+                if (adj_mat[cur_node][i] != 0) and (i not in visited): #search the row of the current node to find neighbors
+                    queue.append(i) #add neighbor node to the queue
+                    visited.append(i) #mark current neighbor as visited
+                    path[i] = cur_node #store the parent node of the neighbor in the dictionary path
+        return visited #visited returns the order of traversal (and traversal cannot occur if the graph isn't connnected)
             
     
     assert len(bfs(vertices[0], adj_mat))==len(vertices) #length of traversed path should equal the total number of vertices
