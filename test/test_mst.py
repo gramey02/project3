@@ -44,20 +44,20 @@ def check_mst(adj_mat: np.ndarray,
     
     #check to make sure the adjacency and mst matrices are symmetric, since both are undirected
     #at the same time, check to make sure that the mst weights are a subset of the weights in the original adj_mat
-    mst_set = {} #empty set
-    adj_mat_set = {} #empty set
+    mst_set = [] #empty list
+    adj_mat_set = [] #empty list
     for i in range(adj_mat.shape[0]):
         for j in range(i+1):
             assert adj_mat[i,j] == adj_mat[j,i]
             if adj_mat[i,j] != 0:
-                adj_mat_set.add(adj_mat[i,j]) #add any non-zero values in adj_mat to the set adj_mat_set
+                adj_mat_set.append(adj_mat[i,j]) #add any non-zero values in adj_mat to the set adj_mat_set
     for i in range(mst.shape[0]):
         for j in range(i+1):
             assert mst[i,j] == mst[i,j]
             if mst[i,j] != 0:
-                mst_set.add(mst[i,j]) #add any non-zero values in mst to the set mst_set
+                mst_set.append(mst[i,j]) #add any non-zero values in mst to the set mst_set
     
-    assert mst_set.issubset(adj_mat_set) #check that mst_set is a subset of adj_mat_set
+    assert set(mst_set).issubset(set(adj_mat_set)) #check that mst_set is a subset of adj_mat_set
 
     
     #minimum spanning trees are always connected--use a version of the breadth-first search algorithm from last week to check this
