@@ -68,9 +68,11 @@ class Graph:
         #reconstruct an adjacency matrix with only the mst information contained in mst_edges
         final_mst = np.zeros((len(self.adj_mat), len(self.adj_mat))) #start by creating an adjancency matrix with same dimensions as self.adj_mat
         #fill the adj mat in for each weighted edge in mst_edges
-        for edge in range(0,len(mst_edges)):
+        for i in range(0,len(mst_edges)):
             cur_edge = mst_edges[i] #get the current edge
             #find the start and destination vertices from the current edge and assign the corresponding weight to them in the adjacency matrix
             final_mst[cur_edge[1][0], cur_edge[1][1]] = cur_edge[0]
+            final_mst[cur_edge[1][1], cur_edge[1][0]] = cur_edge[0]
+
 
         self.mst = final_mst
