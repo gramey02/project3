@@ -61,32 +61,29 @@ def check_mst(adj_mat: np.ndarray,
 
     
     #minimum spanning trees are always connected--use a version of the breadth-first search algorithm from last week to check this
-    def bfs_project3():
+    """
+    def bfs_from_project3(start):
         visited = [] #queue to store visited nodes
-            queue = [] #general queue
-            shortest_path = []
-            path = {} #dictionary for storing parent nodes
-            
-            queue.append(start) #add start node to the queue
-            visited.append(start) #mark the start node as visited
-            
-            while queue:
-                cur_node = queue.pop(0) #dequeue the current node
-                
-                if cur_node == end:
-                    #the first entry of the shortest path queue will be the end node, the last entry will be start node
-                    shortest_path.append(cur_node) #append the end node to the shortest_path queue
-                    while (path.get(cur_node) is not None):
-                        shortest_path.append(path[cur_node]) #traceback the shortest path by appending the parent nodes in order
-                        cur_node = path[cur_node] #update cur_node variable to be the parent node
-                    return shortest_path
+        queue = [] #general queue
+        path = {} #dictionary for storing parent nodes
 
-                #for each unvisited neighbor of the current node...
-                for nghbr in set(nx.neighbors(self.graph, cur_node)):
-                    if nghbr not in visited:
-                        queue.append(nghbr) #add current neighbor to the queue
-                        visited.append(nghbr) #mark current neighbor as visited
-                        path[nghbr] = cur_node #store the parent node of the neighbor in the dictionary
+        queue.append(start) #add start node to the queue
+        visited.append(start) #mark the start node as visited
+
+        #while there are still nodes in the queue...
+        while queue:
+            cur_node = queue.pop(0) #dequeue the current node
+
+            #for each unvisited neighbor of the current node...
+            for nghbr in set(nx.neighbors(self.graph, cur_node)):
+                if nghbr not in visited:
+                    queue.append(nghbr) #add current neighbor to the queue
+                    visited.append(nghbr) #mark current neighbor as visited
+                    path[nghbr] = cur_node #store the parent node of the neighbor in the dictionary
+        return visited #visited gives the order of traversal
+    """
+    
+    #get create a sequence of node names
 
 
 def test_mst_small():
@@ -147,4 +144,8 @@ def test_mst_student():
                                                                               [0., 0., 1., 2.],
                                                                               [0., 1., 0., 0.],
                                                                               [5., 2., 0., 0.]])
+    
+    #other edge cases?
+    
+    #try an adjacency matrix that includes negative weights
     
