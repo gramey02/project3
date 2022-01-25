@@ -142,22 +142,24 @@ def test_mst_student():
     #for a graph whose mst is NOT unique (like small.csv), check that the mst equals one of two non-unique mst options
     file_path = './data/small.csv'
     
-    mst1 = np.array([[0, 0, 0, 5],
-                     [0, 0, 1, 2],
-                     [0, 1, 0, 0],
-                     [5, 2, 0, 0]])
+    mst1 = np.array([[0., 0., 0., 5.],
+                     [0., 0., 1., 2.],
+                     [0., 1., 0., 0.],
+                     [5., 2., 0., 0.]])
     
-    mst2 = np.array([[0, 0, 0, 5],
-                     [0, 0, 1, 2],
-                     [0, 1, 0, 0],
-                     [5, 2, 0, 0]])
+    mst2 = np.array([[0., 5., 0., 0.],
+                     [5., 0., 1., 2.],
+                     [0., 1., 0., 0.],
+                     [0., 2., 0., 0.]])
     
     small = Graph(file_path)
     small.construct_mst() #construct mst for small network
     #check that one of the expected msts is equal to the constructed one
-    comparison = (small.mst==mst1) or (small.mst==mst2)
-    arrays_are_equal = comparison.all()
-    assert arrays_are_equal==True
+    comparison1 = small.mst==mst1
+    comparison2 = small.mst==mst2
+    arrays1_are_equal = comparison1.all()
+    arrays2_are_equal = comparison2.all()
+    assert (arrays1_are_equal==True) or (arrays2_are_equal==True)
     
     #other edge cases?
     
