@@ -134,34 +134,30 @@ def test_mst_student():
     #the mst for the adj_mat above should be unique, so make sure that construct_mst() returns the same mst as shown above
     dummyG = Graph(adj_mat)
     dummyG.construct_mst() #construct mst for dummy network above
-    #check that the right edge weights are in each position of the mst
-    for i in range(mst.shape[0]):
-        for j in range(i+1):
-            if (i==0 and j==2) or (i==2 and j==0):
-                assert dummyG.mst[i,j]==8
-            if (i==0 and j==6) or (i==6 and j==0):
-                assert dummyG.mst[i,j]==1
-            if (i==1 and j==3) or (i==3 and j==1):
-                assert dummyG.mst[i,j]==4
-            if (i==2 and j==3) or (i==3 and j==2):
-                assert dummyG.mst[i,j]==6
-            if (i==2 and j==4) or (i==4 and j==2):
-                assert dummyG.mst[i,j]==2
-            if (i==2 and j==5) or (i==5 and j==2):
-                assert dummyG.mst[i,j]==5
-            else:
-                assert dummyG.mst[i,j]==0
+    #check that the expected and constructed msts are equal
+    comparison = dummyG.mst==mst
+    arrays_are_equal = comparison.all()
+    assert arrays_are_equal==True
     
     #for a graph whose mst is NOT unique (like small.csv), check that the mst equals one of two non-unique mst options
     file_path = './data/small.csv'
+    
+    mst1 = np.array([[0, 0, 0, 5],
+                     [0, 0, 1, 2],
+                     [0, 1, 0, 0],
+                     [5, 2, 0, 0]])
+    
+    mst2 = np.array([[0, 0, 0, 5],
+                     [0, 0, 1, 2],
+                     [0, 1, 0, 0],
+                     [5, 2, 0, 0]])
+    
     small = Graph(file_path)
-    assert small.construct_mst() == np.array([[0, 0, 0, 5],
-                                              [0, 0, 1, 2],
-                                              [0, 1, 0, 0],
-                                              [5, 2, 0, 0]]) or np.array([[0, 0, 0, 5],
-                                                                              [0, 0, 1, 2],
-                                                                              [0, 1, 0, 0],
-                                                                              [5, 2, 0, 0]])
+    small.construt_mst() #construct mst for small network
+    #check that one of the expected msts is equal to the constructed one
+    comparison = (small.mst==mst1) or (small.mst==mst2)
+    arrays_are_equal = comparison.all()
+    assert arrays_are_equal==True
     
     #other edge cases?
     
