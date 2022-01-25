@@ -136,13 +136,13 @@ def test_mst_student():
     #for a graph whose mst is NOT unique (like small.csv), check that the mst equals one of two non-unique mst options
     file_path = './data/small.csv'
     small = Graph(file_path)
-    assert small.construct_mst() == np.array([[0., 0., 0., 5.],
-                                              [0., 0., 1., 2.],
-                                              [0., 1., 0., 0.],
-                                              [5., 2., 0., 0.]]) or np.array([[0., 0., 0., 5.],
-                                                                              [0., 0., 1., 2.],
-                                                                              [0., 1., 0., 0.],
-                                                                              [5., 2., 0., 0.]])
+    assert small.construct_mst() == np.array([[0, 0, 0, 5],
+                                              [0, 0, 1, 2],
+                                              [0, 1, 0, 0],
+                                              [5, 2, 0, 0]]) or np.array([[0, 0, 0, 5],
+                                                                              [0, 0, 1, 2],
+                                                                              [0, 1, 0, 0],
+                                                                              [5, 2, 0, 0]])
     
     #other edge cases?
     
