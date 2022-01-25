@@ -3,7 +3,6 @@ import pytest
 import numpy as np
 from mst import Graph
 from sklearn.metrics import pairwise_distances
-from search import Graph
 
 
 def check_mst(adj_mat: np.ndarray, 
