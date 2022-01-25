@@ -136,8 +136,11 @@ def test_mst_student():
     dummyG.construct_mst() #construct mst for dummy network above
     #check that the expected and constructed msts are equal
     comparison = dummyG.mst==mst
-    arrays_are_equal = comparison.all()
+    arrays_are_equal = comparison.all() #compares all array values to make sure they are equal at the same indices
     assert arrays_are_equal==True
+    
+    
+    
     
     #for a graph whose mst is NOT unique (like small.csv), check that the mst equals one of two non-unique mst options
     file_path = './data/small.csv'
@@ -157,11 +160,27 @@ def test_mst_student():
     #check that one of the expected msts is equal to the constructed one
     comparison1 = small.mst==mst1
     comparison2 = small.mst==mst2
-    arrays1_are_equal = comparison1.all()
+    arrays1_are_equal = comparison1.all() #compares all array values to make sure they are equal at the same indices
     arrays2_are_equal = comparison2.all()
     assert (arrays1_are_equal==True) or (arrays2_are_equal==True)
     
-    #other edge cases?
     
-    #try an adjacency matrix that includes negative weights
     
+    
+    
+    #another edge case is an adjacency matrix that includes negative weights
+    adj_mat = np.array([[0, 2, -1, 4],
+                        [2, 0, 0, 5],
+                        [-1, 0, 0, -2],
+                        [4, 5, -2, 0]])
+    mst = np.array([[0, 2, -1, 0],
+                    [2, 0, 0, 0],
+                    [-1, 0, 0, -2],
+                    [0, 0, -2, 0]])
+    
+    negatives = Graph(adj_mat)
+    negatives.construct.mst() #construct mst for a network with negative edges
+    #check that the (unique, in this case) expected mst for the network is equal to the constructed one
+    comparison = negatives.mst==mst
+    arrays_are_equal = comparison.all() #compares all array values to make sure they are equal at the same indices
+    assert arrays_are_equal==True
