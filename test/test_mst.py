@@ -179,7 +179,7 @@ def test_mst_student():
                     [0, 0, -2, 0]])
     
     negatives = Graph(adj_mat)
-    negatives.construct.mst() #construct mst for a network with negative edges
+    negatives.construct_mst() #construct mst for a network with negative edges
     #check that the (unique, in this case) expected mst for the network is equal to the constructed one
     comparison = negatives.mst==mst
     arrays_are_equal = comparison.all() #compares all array values to make sure they are equal at the same indices
