@@ -50,13 +50,13 @@ def check_mst(adj_mat: np.ndarray,
             #check the symmetry of the rounded values (since some decimals are like 0.00000001 off)
             assert round(adj_mat[i,j],6) == round(adj_mat[j,i],6)
             if adj_mat[i,j] != 0:
-                adj_mat_set.append(round(adj_mat[i,j])) #add any non-zero values in adj_mat to the set adj_mat_set
+                adj_mat_set.append(round(adj_mat[i,j], 6)) #add any non-zero values in adj_mat to the set adj_mat_set
     for i in range(mst.shape[0]):
         for j in range(i+1):
             #check the symmetry of the rounded values (since some decimals are like 0.00000001 off)
             assert round(mst[i,j],6) == round(mst[i,j],6)
             if mst[i,j] != 0:
-                mst_set.append(round(mst[i,j])) #add any non-zero values in mst to the set mst_set
+                mst_set.append(round(mst[i,j], 6)) #add any non-zero values in mst to the set mst_set
     
     assert set(mst_set).issubset(set(adj_mat_set)) #check that mst_set is a subset of adj_mat_set
 
