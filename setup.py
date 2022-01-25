@@ -8,5 +8,5 @@ setup(
     author_email= 'Grace.Ramey@ucsf.edu',
     packages= find_packages(),
     description= 'Finds a minimum spanning tree for a connected adjacency matrix',
-	install_requires= ['pytest', 'typing', 'sklearn.metrics', 'numpy']
+	install_requires= ['pytest', 'typing', 'numpy']
 )
