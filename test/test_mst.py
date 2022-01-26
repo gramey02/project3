@@ -133,6 +133,7 @@ def test_mst_student():
        [0., 0., 5., 0., 0., 0., 0.],
        [1., 0., 0., 0., 0., 0., 0.]])
     
+    #check the mst
     check_mst(adj_mat = adj_mat, mst = mst, expected_weight = 26)
     
     #the mst for the adj_mat above should be unique, so make sure that construct_mst() returns the same mst as shown above
@@ -159,8 +160,11 @@ def test_mst_student():
                      [0., 1., 0., 0.],
                      [0., 2., 0., 0.]])
     
+    
     small = Graph(file_path)
     small.construct_mst() #construct mst for small network
+    #check that the constructed mst meets certain criteria
+    check_mst(adj_mat = small.adj_mat, mst=small.mst, expected weight = 8)
     #check that one of the expected msts is equal to the constructed one
     comparison1 = small.mst==mst1
     comparison2 = small.mst==mst2
@@ -184,6 +188,8 @@ def test_mst_student():
     
     negatives = Graph(adj_mat)
     negatives.construct_mst() #construct mst for a network with negative edges
+    #check that the constructed mst meets certain criteria
+    check_mst(adj_mat=negatives.adj_mat, mst=negatives.mst, expected_weight = -1)
     #check that the (unique, in this case) expected mst for the network is equal to the constructed one
     comparison = negatives.mst==mst
     arrays_are_equal = comparison.all() #compares all array values to make sure they are equal at the same indices
