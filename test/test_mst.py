@@ -164,7 +164,7 @@ def test_mst_student():
     small = Graph(file_path)
     small.construct_mst() #construct mst for small network
     #check that the constructed mst meets certain criteria
-    check_mst(adj_mat = small.adj_mat, mst=small.mst, expected weight = 8)
+    check_mst(adj_mat = small.adj_mat, mst=small.mst, expected_weight = 8)
     #check that one of the expected msts is equal to the constructed one
     comparison1 = small.mst==mst1
     comparison2 = small.mst==mst2
